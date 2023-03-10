@@ -34,7 +34,7 @@ logging.info("Reading input file")
 df = read(args.input_file)
 
 # Time in miliseconds (0.001 seconds)
-time = 0.0001*df.time.to_numpy()
+time = df.time.to_numpy()
 
 # Get power
 # Channel A: high voltage over reactor. Turn down ratio 1000:1.
@@ -44,6 +44,8 @@ chan_c = Signal(df.chan_c.to_numpy(), time, step_down = 10)
 
 del df
 
-logging.info(f'Power is: {chan_a.slice_by_period(1, 17.5) * chan_c.slice_by_period(1, 17.5)}')
+power = np.abs(chan_a.slice_by_period(1, envelope_time)) * np.abs(chan_c.slice_by_period(1, envelope_time))
+
+logging.info(f'Power is: {np.sum(power)}')
 
 logging.info("Done")
