@@ -1,0 +1,12 @@
+name: plasma
+channels:
+  - conda-forge
+dependencies:
+  - python==3.9.5
+  - pip
+  - pandas
+  - numpy
+  - scipy
+  - pyarrow
+  - matplotlib
+  - cupy-cuda116
